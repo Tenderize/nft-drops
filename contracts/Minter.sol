@@ -7,6 +7,8 @@ import "./merkle-proofs/Snapshots.sol";
 import "./erc1155/ERC1155Mintable.sol";
 
 contract Minter is Ownable, Snapshots {
+    mapping(address => mapping(uint256 => bool)) internal claimed;
+
     ERC1155Mintable public token;
 
     event Claimed(uint256 indexed id, address indexed claimer);
@@ -54,6 +56,7 @@ contract Minter is Ownable, Snapshots {
             "invalid claim"
         );
 
+        require(!claimed[_caller][_id], "already claimed");
         token.mint(_id, _for, 1);
 
         emit Claimed(_id, _for);
