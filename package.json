@@ -1,9 +1,13 @@
 {
-  "name": "nft-drops",
+  "name": "@nft-drops/mono",
   "version": "1.0.0",
   "description": "Tenderize NFT drops",
-  "main": "index.js",
   "repository": "https://github.com/Tenderize/nft-drops.git",
   "author": "Tenderize",
-  "license": "MIT"
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "main": "index.js",
+  "private": true
 }

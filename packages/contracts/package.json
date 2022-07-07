@@ -1,7 +1,8 @@
 {
-  "name": "nft-drops",
+  "name": "@nft-drops/contracts",
   "version": "0.0.1",
   "description": "Tenderize NFT drops",
+  "private": true,
   "scripts": {
     "build": "hardhat compile --config ./hardhat.config.ts",
     "test": "hardhat test --config ./hardhat.config.ts",
