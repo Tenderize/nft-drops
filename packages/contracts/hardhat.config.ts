@@ -1,4 +1,6 @@
 import * as dotenv from 'dotenv'
+import path from 'path'
+import fs from 'fs'
 
 import { HardhatUserConfig } from 'hardhat/types'
 import '@typechain/hardhat'
@@ -7,7 +9,24 @@ import '@nomiclabs/hardhat-waffle'
 import '@primitivefi/hardhat-dodoc'
 import 'hardhat-gas-reporter'
 
+function loadTasks () {
+  const tasksPath = path.join(__dirname, 'tasks')
+  fs.readdirSync(tasksPath).forEach(task => {
+    require(`${tasksPath}/${task}`)
+  })
+}
+
+if (
+  fs.existsSync(path.join(__dirname, 'artifacts')) &&
+  fs.existsSync(path.join(__dirname, 'typechain-types'))
+) {
+  loadTasks()
+}
+
 dotenv.config()
+
+const PRIVATE_KEY = process.env.PRIVATE_KEY
+
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -28,6 +47,10 @@ const config: HardhatUserConfig = {
     hardhat: {
       blockGasLimit: 30_000_000,
     },
+    mumbai: {
+      url: "https://rpc-mumbai.maticvigil.com/",
+      accounts: PRIVATE_KEY ? [`0x${PRIVATE_KEY}`] : undefined
+    }
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,

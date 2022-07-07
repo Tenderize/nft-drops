@@ -1,5 +1,8 @@
 const { keccak256, bufferToHex } = require('ethereumjs-util')
 import { utils } from 'ethers'
+const events = require('events');
+const fs = require('fs');
+const readline = require('readline');
 
 export interface MerkleTree {
   elements: Array<string[66]>
@@ -157,4 +160,25 @@ export class AccountTree extends MerkleTree {
   toJSON() {
     return JSON.stringify(this.elements, null, 4)
   }
+}
+
+export async function processAddressFile(path: string): Promise<Array<string>> {
+  const output: Array<string> = []
+  try {
+      const rl = readline.createInterface({
+        input: fs.createReadStream(path),
+        crlfDelay: Infinity
+      });
+  
+      rl.on('line', (line) => {
+          output.push(line)
+      });
+  
+      await events.once(rl, 'close');
+  
+    } catch (err) {
+      console.error(err);
+    }
+
+    return output
 }
