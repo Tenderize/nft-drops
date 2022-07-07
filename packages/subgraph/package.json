@@ -1,0 +1,19 @@
+{
+  "name": "@nft-drops/subgraph",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "create": "graph create tenderize/tenderize-nft-drops --node https://api.thegraph.com/deploy/",
+    "create-local": "graph create tenderize/tenderize-nft-drops --node http://127.0.0.1:8020",
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy tenderize/tenderize-nft-drops --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
+    "deploy-local": "graph deploy tenderize/tenderize-nft-drops --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.30.2",
+    "@graphprotocol/graph-ts": "^0.27.0"
+  },
+  "dependencies": {
+  }
+}
