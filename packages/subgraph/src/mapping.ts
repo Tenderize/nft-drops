@@ -1,19 +1,18 @@
 import { Created, Claimed } from '../generated/Minter/Minter'
 import { Claim, Drop, Minter, User } from '../generated/schema'
-import { ByteArray } from '@graphprotocol/graph-ts'
+import { ByteArray, Bytes } from '@graphprotocol/graph-ts'
 
-export function newDrop(event: Created): void {
+export function handleDrop(event: Created): void {
   let drop = new Drop(event.params.id.toString())
   drop.uri = event.params.uri
   drop.save()
 }
 
-export function newClaim(event: Claimed): void {
+export function handleClaim(event: Claimed): void {
   let id = event.params.id.toString()
   let claim = new Claim(
-    ByteArray.fromHexString(
-      event.params.id.toString()
-        .concat('_', event.params.claimer.toHex())
+    Bytes.fromHexString(
+      event.params.id.toString().concat(event.params.claimer.toHex())
     )
   )
  

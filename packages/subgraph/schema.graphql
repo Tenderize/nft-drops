@@ -1,17 +1,10 @@
-type Minter @entity(immutable: true) {
-  "contract address"
-  id: Bytes!
-  "ERC-1155 token address"
-  token: Bytes!
-}
-
 type Drop @entity {
   "numeric ID of the drop"
   id: ID!
   "URI for the drop"
   uri: String!
   "users that have claomed this drop"
-  users: [Claim!]! @derivedFrom(field: "drop")
+  claims: [Claim!]! @derivedFrom(field: "drop")
 }
 
 type Claim @entity {
@@ -27,5 +20,5 @@ type User @entity {
   "user address"
   id: Bytes! # address
   "drops claimed by user"
-  drops: [Claim!]! @derivedFrom(field: "user")
+  claims: [Claim!]! @derivedFrom(field: "user")
 }
