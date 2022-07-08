@@ -43,6 +43,12 @@
         "internalType": "bytes32",
         "name": "merkleRoot",
         "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "metadata",
+        "type": "bytes32"
       }
     ],
     "name": "Created",
@@ -123,6 +129,11 @@
       {
         "internalType": "bytes32",
         "name": "_merkleRoot",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "_metadata",
         "type": "bytes32"
       }
     ],

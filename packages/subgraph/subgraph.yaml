@@ -21,7 +21,7 @@ dataSources:
         - name: Minter
           file: ./abis/Minter.json
       eventHandlers:
-        - event: Created(uint256,string,bytes32)
+        - event: Created(uint256,string,bytes32,bytes32)
           handler: handleDrop
         - event: Claimed(indexed uint256,indexed address)
           handler: handleClaim

@@ -1,8 +1,12 @@
 type Drop @entity {
   "numeric ID of the drop"
   id: ID!
-  "URI for the drop"
+  "URI for the drop (base64 encoded)"
   uri: String!
+  "merkle root for the drop"
+  merkleroot: Bytes!
+  "metadata URI for the drop (base64 encoded)"
+  metadata: Bytes!
   "users that have claomed this drop"
   claims: [Claim!]! @derivedFrom(field: "drop")
 }

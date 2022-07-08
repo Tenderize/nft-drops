@@ -12,7 +12,7 @@ contract Minter is Ownable, Snapshots {
     ERC1155Mintable public token;
 
     event Claimed(uint256 indexed id, address indexed claimer);
-    event Created(uint256 id, string uri, bytes32 merkleRoot);
+    event Created(uint256 id, string uri, bytes32 merkleRoot, bytes32 metadata);
 
     constructor() {
         token = new ERC1155Mintable();
@@ -21,12 +21,13 @@ contract Minter is Ownable, Snapshots {
     function create(
         uint256 _initialSupply,
         string calldata _uri,
-        bytes32 _merkleRoot
+        bytes32 _merkleRoot,
+        bytes32 _metadata
     ) public onlyOwner {
         uint256 id = token.create(_initialSupply, _uri);
         require(snapshots[id] == 0x0, "snapshot already exists");
         Snapshots.setSnapshot(id, _merkleRoot);
-        emit Created(id, _uri, _merkleRoot);
+        emit Created(id, _uri, _merkleRoot, _metadata);
     }
 
     function claim(uint256 _id, bytes32[] calldata _proof) public {

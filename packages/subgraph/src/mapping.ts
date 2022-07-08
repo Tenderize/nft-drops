@@ -1,10 +1,12 @@
 import { Created, Claimed } from '../generated/Minter/Minter'
-import { Claim, Drop, Minter, User } from '../generated/schema'
-import { ByteArray, Bytes } from '@graphprotocol/graph-ts'
+import { Claim, Drop, User } from '../generated/schema'
+import { Bytes } from '@graphprotocol/graph-ts'
 
 export function handleDrop(event: Created): void {
   let drop = new Drop(event.params.id.toString())
   drop.uri = event.params.uri
+  drop.merkleroot = event.params.merkleRoot
+  drop.metadata = event.params.metadata
   drop.save()
 }
 

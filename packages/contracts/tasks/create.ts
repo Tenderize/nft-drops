@@ -21,7 +21,7 @@ task('drop', 'create a new drop')
 
     const Minter: Minter= await ethers.getContractAt('Minter', args.minter)
 
-    const tx = await (await Minter.create(claimants.length, args.uri, root)).wait()
+    const tx = await (await Minter.create(claimants.length, args.uri, root, ethers.constants.HashZero)).wait()
     
     const event = tx?.events?.filter(e => e.event === 'Created')[0]
 
