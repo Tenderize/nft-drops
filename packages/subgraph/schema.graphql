@@ -7,6 +7,8 @@ type Drop @entity {
   merkleroot: Bytes!
   "metadata URI for the drop (base64 encoded)"
   metadata: Bytes!
+  "timestamp at which the drop was created"
+  timestamp: Int!
   "users that have claomed this drop"
   claims: [Claim!]! @derivedFrom(field: "drop")
 }
