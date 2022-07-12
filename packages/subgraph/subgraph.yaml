@@ -6,10 +6,10 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Minter
-    network: matic
+    network: mumbai
     source:
-      startBlock: 27071564
-      address: '0x48fE72503d995E18D3ff3E879055518f8a74b1a3'
+      startBlock: 27095490
+      address: '0x7deBE83158Ad0B5319CC409d3d36106B26D5E00F'
       abi: Minter
     mapping:
       kind: ethereum/events
@@ -21,7 +21,7 @@ dataSources:
         - name: Minter
           file: ./abis/Minter.json
       eventHandlers:
-        - event: Created(uint256,string,bytes32,bytes32)
+        - event: Created(uint256,string,bytes32)
           handler: handleDrop
         - event: Claimed(indexed uint256,indexed address)
           handler: handleClaim

@@ -5,6 +5,8 @@ import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 import type { AppProps } from 'next/app';
+import { ChakraProvider } from '@chakra-ui/react'
+import { Subgraph, Claim, Drop} from "utils/queries"
 
 const { chains, provider } = configureChains(
   [chain.polygonMumbai],
@@ -27,11 +29,13 @@ const wagmiClient = createClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
+    <ChakraProvider>
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
+    </ChakraProvider>
   );
 }
 

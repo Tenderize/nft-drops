@@ -25,6 +25,10 @@ contract ERC1155Mintable is ERC1155, Ownable {
         _;
     }
 
+    function uri(uint256 _id) public view returns (string memory) {
+        return uris[_id];
+    }
+
     // Creates a new token type and assings _initialSupply to minter
     function create(uint256 _initialSupply, string calldata _uri)
         external

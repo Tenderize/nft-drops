@@ -1,12 +1,10 @@
 type Drop @entity {
   "numeric ID of the drop"
   id: ID!
-  "URI for the drop (base64 encoded)"
+  "URI for the drop"
   uri: String!
   "merkle root for the drop"
   merkleroot: Bytes!
-  "metadata URI for the drop (base64 encoded)"
-  metadata: Bytes!
   "timestamp at which the drop was created"
   timestamp: Int!
   "users that have claomed this drop"

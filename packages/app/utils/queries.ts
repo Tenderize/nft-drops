@@ -24,10 +24,34 @@ const GetData = `
     }
 `
 
+const GetDrops = `
+{
+    drops {
+        id
+        uri
+        claims {
+            id
+        }
+    }
+}
+`
+
+const GetClaims = `
+query getClaims($user: Bytes!) {
+    claims(where: {user: $user}) {
+        id
+        drop {
+            id
+        }
+    }
+}
+`
+
 export type Drop = {
     id: number,
     uri: string
     claims: Array<Claim>
+    metadata?: Metadata
 }
 
 export type Claim = {
@@ -45,12 +69,44 @@ type Data = {
     drops: Array<Drop>
 }
 
+export type Metadata = {
+    name: string,
+    description: string | undefined,
+    image: string,
+    animation_url: string
+}
+
 export class Subgraph {
     client: Client
     constructor() {
         this.client = createClient({
             url: URL
         })
+    }
+
+    async GetDrops():Promise<Array<Drop>> {
+        let drops:Array<Drop> = []
+
+        try {
+            const res = await this.client.query(GetDrops).toPromise()
+            drops = res?.data?.drops
+        } catch (err) {
+            console.log(err)
+        }
+
+        console.log(drops)
+        return drops
+    }
+
+    async GetClaims(address: string):Promise<Array<Claim>> {
+        let claims: Array<Claim> = []
+        try {
+            const res = await this.client.query(GetClaims, {user: address.toLowerCase()}).toPromise()
+            claims = res?.data?.claims
+        } catch (err) {
+            console.log(err)
+        }
+        return claims
     }
 
     async getData(address: string): Promise<Data> {
